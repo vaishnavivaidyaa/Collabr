@@ -3,6 +3,9 @@ services:
     build: ./backend
     ports:
       - "8001:8000"
+    depends_on:
+      - db
+      - redis
 
   frontend:
     build: ./frontend
@@ -15,3 +18,12 @@ services:
     image: redis:7-alpine
     ports:
       - "6379:6379"
+
+  db:
+    image: postgres:17-alpine
+    environment:
+      POSTGRES_USER: collabr
+      POSTGRES_PASSWORD: collabrpass
+      POSTGRES_DB: collabr_db
+    ports:
+      - "5432:5432"
